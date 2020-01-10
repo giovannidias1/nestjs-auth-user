@@ -14,11 +14,27 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+type ItemDto {
+  id: ID!
+  title: String!
+  price: Int!
+  description: String!
+  user: String!
+}
+
+input ItemInput {
+  title: String!
+  price: Int!
+  description: String!
+  user: String!
+}
+
 type ItemType {
   id: ID!
   title: String!
   price: Int!
   description: String!
+  user: String!
 }
 
 input LoginInput {
@@ -31,19 +47,24 @@ type Mutation {
   updateUser(input: UserInput!, id: String!): UserType!
   deleteUser(id: String!): UserType!
   login(login: LoginInput!): AuthDto!
+  createItem(input: ItemInput!): ItemType!
+  updateItem(input: ItemInput!, id: String!): ItemType!
+  deleteItem(id: String!): ItemType!
 }
 
 type Query {
   users: [UserType!]!
-  findUserById(id: String!): UserType!
+  findUserById(id: String!): UserDto!
+  items: [ItemType!]!
 }
 
 type UserDto {
+  id: String!
   firstName: String!
   lastName: String!
   email: String!
   birthdate: DateTime!
-  items: ItemType!
+  items: [ItemDto!]!
 }
 
 input UserInput {

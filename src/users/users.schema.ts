@@ -11,5 +11,5 @@ export const UsersSchema = new mongoose.Schema({
             valid: { type: Boolean, default: false },
         },
     },
-    items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'items'}],
+    items: [{ type: [mongoose.Schema.Types.ObjectId], ref: 'Item'}],
 });

@@ -1,7 +1,7 @@
 import { ObjectType, Field, Int, ID } from 'type-graphql';
 
 @ObjectType()
-export class ItemType {
+export class ItemDto {
   @Field(() => ID)
   readonly id?: string;
   @Field()

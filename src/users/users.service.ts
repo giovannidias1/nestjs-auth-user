@@ -1,4 +1,5 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { UserDto } from './dto/user.dto';
+import { Injectable, HttpException, HttpStatus, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserType } from './dto/create-user.dto';
@@ -33,8 +34,8 @@ export class UsersService {
         return await this.userModel.find().exec();
     }
 
-    async findOne(id: string): Promise<UserType> {
-        return await this.userModel.findOne({ _id: id });
+    async findOne(id: string): Promise<UserDto> {
+        return await this.userModel.findOne({ _id: id }).populate('Items').exec();
     }
 
     async delete(id: string): Promise<UserType> {
@@ -48,6 +49,14 @@ export class UsersService {
     async findByEmail(email: string): Promise<User> {
         return await this.userModel.findOne({ email }).exec();
     }
+
+    // async getOne(id: string): Promise<UserType> {
+    //     try {
+    //       return await this.userModel.findById(id).populate('items').exec();
+    //     } catch (e) {
+    //       throw new BadRequestException(e);
+    //     }
+    //   }
 
     isValidEmail(email: string) {
         if (email) {
